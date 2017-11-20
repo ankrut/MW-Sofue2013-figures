@@ -1,0 +1,19 @@
+function radius_mass(varargin)
+Q = module.struct(varargin{:});
+
+% destructure
+COMP	= Q.component;
+AXIS	= Q.axis;
+STYLE	= Q.style;
+
+Q.component.rar.forEach(@(p) lib.view.plot.curve2D(p,AXIS.tov.radius,AXIS.tov.mass,STYLE.rar{:}));
+lib.view.plot.curve2D(COMP.baryonic,AXIS.data.radius,AXIS.data.mass,STYLE.baryonic{:});
+lib.view.plot.curve2D(COMP.total,AXIS.data.radius,AXIS.data.mass,STYLE.total{:});
+
+lib.view.plot.errorbar(...
+	'profile',	COMP.sofue2013,...
+	'x',		AXIS.sof13.radius,...
+	'y',		AXIS.sof13.mass,...
+	'dy',		AXIS.sof13.mass_error,...
+	'errorbar',	STYLE.errorbar...
+);
